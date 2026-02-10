@@ -2,7 +2,7 @@ name: Deploy Landing Page (GitHub Pages)
 
 on:
   push:
-    branches: ["main", "master"]
+    branches: ["main", "master", "codex/init-landing-page"]
     paths:
       - "docs/landing/**"
       - ".github/workflows/pages.yml"

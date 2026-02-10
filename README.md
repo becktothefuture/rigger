@@ -14,12 +14,16 @@ Turn design tokens into hands‑on controls. Sweep through typography, spacing, 
 ![vscode](https://img.shields.io/badge/vscode-extension-1e293b)
 ![stack](https://img.shields.io/badge/stack-React%20%2B%20Tailwind%20%2B%20TypeScript-334155)
 ![tests](https://img.shields.io/badge/tests-vitest%20%7C%20vscode-16a34a)
+[![preview](https://img.shields.io/badge/preview-live-ff5a2e)](https://becktothefuture.github.io/rigger/)
 
 ---
 
 ## Landing Page (GitHub Pages)
 
 Source lives in `docs/landing/`.
+
+**Live preview**
+[GitHub Pages](https://becktothefuture.github.io/rigger/)
 
 **Local preview**
 ```bash
