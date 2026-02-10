@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rigger — Live Rigging Console for UI Systems</title>
+    <meta
+      name="description"
+      content="Rigger turns design tokens into a live rigging console. Scan, rig, and preview UI systems in real time without unsafe edits."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="grid-overlay" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark"></span>
+        <span class="brand-name">Rigger</span>
+      </div>
+      <nav class="topnav">
+        <a href="#hero">Intro</a>
+        <a href="#how">How</a>
+        <a href="#preview">Preview</a>
+        <a href="#safety">Safety</a>
+        <a href="#cta" class="cta">Install</a>
+      </nav>
+    </header>
+
+    <div class="stage">
+      <main class="scene">
+        <section id="hero" class="section depth-4">
+          <div class="container hero-grid">
+            <div class="hero-copy">
+              <p class="eyebrow">Instrument panel for UI systems</p>
+              <h1>Rig your interface like a precision tool.</h1>
+              <p class="lead">
+                Rigger turns design tokens into live controls. Sweep typography, spacing,
+                color, and motion in real time—without unsafe edits.
+              </p>
+              <div class="cta-row">
+                <a class="button primary" href="#cta">Install extension</a>
+                <a class="button ghost" href="#preview">See the preview</a>
+              </div>
+              <div class="hero-meta">
+                <div class="meta-chip">Cursor + VS Code</div>
+                <div class="meta-chip">Undo-friendly edits</div>
+                <div class="meta-chip">Live preview targets</div>
+              </div>
+            </div>
+            <div class="hero-visual" data-parallax="0.08">
+              <div class="panel-mock">
+                <div class="panel-header">
+                  <div class="panel-title">Rig Console</div>
+                  <div class="panel-status">Live · 12 params</div>
+                </div>
+                <div class="panel-body">
+                  <div class="panel-group">
+                    <div class="group-title">Typography</div>
+                    <div class="slider-row">
+                      <span>Base size</span>
+                      <div class="slider">
+                        <div class="slider-fill" style="width: 62%"></div>
+                      </div>
+                      <span class="value">16px</span>
+                    </div>
+                    <div class="slider-row">
+                      <span>Line height</span>
+                      <div class="slider">
+                        <div class="slider-fill" style="width: 45%"></div>
+                      </div>
+                      <span class="value">1.4</span>
+                    </div>
+                  </div>
+                  <div class="panel-group">
+                    <div class="group-title">Colour</div>
+                    <div class="slider-row">
+                      <span>Accent</span>
+                      <div class="swatch"></div>
+                      <span class="value">#ff5a2e</span>
+                    </div>
+                    <div class="slider-row">
+                      <span>Surface</span>
+                      <div class="swatch muted"></div>
+                      <span class="value">#f7f7f2</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-footer">
+                  <span>Preview: Embedded panel</span>
+                  <span class="pill">Safe edits</span>
+                </div>
+              </div>
+              <div class="hero-shape" data-parallax="0.14"></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="proof" class="section depth-3">
+          <div class="container split">
+            <div>
+              <p class="eyebrow">Why Rigger feels different</p>
+              <h2>It is a console, not a toy.</h2>
+              <p>
+                Rigger is built for real codebases. Scan read-only. Generate rig configs.
+                Apply diffs with WorkspaceEdit so everything is reversible and safe.
+              </p>
+            </div>
+            <div class="stat-grid" data-parallax="0.06">
+              <div class="stat-card">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Preview targets</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value">6</div>
+                <div class="stat-label">Guardrails</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value">0</div>
+                <div class="stat-label">Unsafe edits</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value">∞</div>
+                <div class="stat-label">Undo depth</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="how" class="section depth-2">
+          <div class="container">
+            <p class="eyebrow">How it works</p>
+            <h2>Scan. Rig. Preview. Repeat.</h2>
+            <div class="pipeline">
+              <div class="pipe-step">
+                <span class="pipe-index">01</span>
+                <div>
+                  <h3>Scan</h3>
+                  <p>Read the workspace and identify riggable parameters.</p>
+                </div>
+              </div>
+              <div class="pipe-step">
+                <span class="pipe-index">02</span>
+                <div>
+                  <h3>Group</h3>
+                  <p>Organize color, type, spacing, and motion into usable rigs.</p>
+                </div>
+              </div>
+              <div class="pipe-step">
+                <span class="pipe-index">03</span>
+                <div>
+                  <h3>Apply</h3>
+                  <p>Generate config + CSS hooks with diff-first safety.</p>
+                </div>
+              </div>
+              <div class="pipe-step">
+                <span class="pipe-index">04</span>
+                <div>
+                  <h3>Preview</h3>
+                  <p>Pipe updates to embedded panel or a browser target.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="preview" class="section depth-3">
+          <div class="container split">
+            <div>
+              <p class="eyebrow">Live preview</p>
+              <h2>A browser panel that feels real.</h2>
+              <p>
+                The preview target is a grounded, believable browser surface. It is
+                intentionally minimal so the controls stay dominant.
+              </p>
+              <div class="code-block">
+                <code>Preview target: local dev (localhost)</code>
+              </div>
+            </div>
+            <div class="browser-mock" data-parallax="0.1">
+              <div class="browser-bar">
+                <span class="dot red"></span>
+                <span class="dot yellow"></span>
+                <span class="dot green"></span>
+                <div class="url">http://localhost:4173</div>
+              </div>
+              <div class="browser-body">
+                <div class="preview-card">
+                  <div class="preview-title">Rigger Preview</div>
+                  <div class="preview-line"></div>
+                  <div class="preview-line short"></div>
+                  <div class="preview-line"></div>
+                  <div class="preview-cta">Toggle live preview</div>
+                </div>
+                <div class="preview-side">
+                  <div class="mini-panel">
+                    <div class="mini-row"></div>
+                    <div class="mini-row"></div>
+                    <div class="mini-row"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="control-surface" class="section depth-2">
+          <div class="container">
+            <p class="eyebrow">Control surface</p>
+            <h2>Designed for depth, not noise.</h2>
+            <div class="surface-grid">
+              <div class="surface-card">
+                <h3>Token grid</h3>
+                <p>Everything is CSS variables first. Rig them once, reuse forever.</p>
+              </div>
+              <div class="surface-card">
+                <h3>Precision controls</h3>
+                <p>Typed inputs, sliders, and resets at every level.</p>
+              </div>
+              <div class="surface-card">
+                <h3>Density modes</h3>
+                <p>Compact, comfortable, or large. Tune to your workflow.</p>
+              </div>
+            </div>
+            <div class="token-matrix" data-parallax="0.05">
+              <div class="token-row">
+                <span>--rig-accent</span>
+                <span>#ff5a2e</span>
+                <span>Colour</span>
+              </div>
+              <div class="token-row">
+                <span>--rig-font-body</span>
+                <span>14px</span>
+                <span>Typography</span>
+              </div>
+              <div class="token-row">
+                <span>--rig-gap</span>
+                <span>18px</span>
+                <span>Spacing</span>
+              </div>
+              <div class="token-row">
+                <span>--rig-radius</span>
+                <span>14px</span>
+                <span>Shape</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="safety" class="section depth-3">
+          <div class="container split">
+            <div>
+              <p class="eyebrow">Safety first</p>
+              <h2>Guardrails are non-negotiable.</h2>
+              <p>
+                Rigger reads first, edits later. Everything is reversible and
+                version-control friendly. It is designed to keep your codebase clean.
+              </p>
+            </div>
+            <ul class="guard-list" data-parallax="0.08">
+              <li>Read-only scan before any edits</li>
+              <li>Confidence thresholds on suggestions</li>
+              <li>WorkspaceEdit for full undo</li>
+              <li>No remote script injection</li>
+              <li>Diff-first variable hooks only</li>
+              <li>Live preview without runtime patching</li>
+            </ul>
+          </div>
+        </section>
+
+        <section id="social" class="section depth-2">
+          <div class="container">
+            <p class="eyebrow">Built for builders</p>
+            <h2>Looks professional in front of real developers.</h2>
+            <div class="pill-row">
+              <span class="pill">Extension-native UI</span>
+              <span class="pill">Fast onboarding</span>
+              <span class="pill">Safe edits</span>
+              <span class="pill">Token-first</span>
+              <span class="pill">Preview targets</span>
+            </div>
+            <div class="quote-card" data-parallax="0.06">
+              <p>
+                “It feels like a physical control panel for a UI system. The sliders
+                are the fastest way I have found to understand a new design token set.”
+              </p>
+              <span>— Senior Frontend Engineer</span>
+            </div>
+          </div>
+        </section>
+
+        <section id="cta" class="section depth-4">
+          <div class="container cta-block">
+            <div>
+              <p class="eyebrow">Ready to rig?</p>
+              <h2>Install the extension and start tuning today.</h2>
+              <p>
+                Built for teams who ship UI. Works inside Cursor and VS Code with
+                a focused, instrument-grade console.
+              </p>
+            </div>
+            <div class="cta-actions">
+              <a class="button primary" href="../..">View repository</a>
+              <a class="button ghost" href="#hero">Back to top</a>
+              <div class="code-block">
+                <code>Command Palette → Rigger: Open Panel</code>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="footer">
+      <span>Rigger — Live rigging console for UI systems.</span>
+      <span>Cursor + VS Code native.</span>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

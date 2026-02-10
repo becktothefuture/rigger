@@ -1,0 +1,91 @@
+{
+  "name": "rigger",
+  "displayName": "Rigger",
+  "description": "Cursor-compatible rigging panel for live UI tuning.",
+  "version": "0.1.0",
+  "publisher": "rigger",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": [
+    "onCommand:rigger.openPanel",
+    "onCommand:rigger.rigItUp",
+    "onCommand:rigger.applyEdits"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "rigger.openPanel",
+        "title": "Rigger: Open Panel"
+      },
+      {
+        "command": "rigger.rigItUp",
+        "title": "Rigger: Rig it up"
+      },
+      {
+        "command": "rigger.applyEdits",
+        "title": "Rigger: Apply Rig Edits"
+      },
+      {
+        "command": "rigger.resetOnboarding",
+        "title": "Rigger: Reset Onboarding"
+      }
+    ],
+    "configuration": {
+      "title": "Rigger",
+      "properties": {
+        "rigger.devWebview": {
+          "type": "boolean",
+          "default": false,
+          "description": "Load the webview from localhost for HMR during development."
+        },
+        "rigger.ai.provider": {
+          "type": "string",
+          "enum": ["openai", "none"],
+          "default": "openai",
+          "description": "AI provider used by Rigger assistant features."
+        },
+        "rigger.ai.model": {
+          "type": "string",
+          "default": "gpt-4.1-mini",
+          "description": "OpenAI model used by Rigger assistant features."
+        },
+        "rigger.ai.baseUrl": {
+          "type": "string",
+          "default": "https://api.openai.com/v1",
+          "description": "OpenAI-compatible API base URL."
+        },
+        "rigger.ai.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Temporary API key override. Prefer OPENAI_API_KEY environment variable or user settings over workspace settings."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "watch:extension": "tsc -w -p tsconfig.json",
+    "watch:webview": "npm --prefix webview run dev",
+    "watch": "concurrently \"npm:watch:extension\" \"npm:watch:webview\"",
+    "build:extension": "tsc -p tsconfig.json",
+    "build:webview": "npm --prefix webview run build",
+    "build": "npm run build:extension && npm run build:webview",
+    "test": "vitest run",
+    "test:integration": "node ./test/runTest.js"
+  },
+  "dependencies": {
+    "css-tree": "^2.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.10",
+    "@types/css-tree": "^2.3.4",
+    "@types/vscode": "^1.90.0",
+    "@vscode/test-electron": "^2.3.9",
+    "concurrently": "^8.2.2",
+    "mocha": "^10.3.0",
+    "typescript": "^5.4.2",
+    "vitest": "^1.6.0"
+  }
+}

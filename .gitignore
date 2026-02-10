@@ -1,0 +1,12 @@
+node_modules/
+webview/node_modules/
+.vscode-test/
+dist/
+webview/dist/
+coverage/
+.playwright-cli/
+output/
+*.log
+.DS_Store
+.env
+.env.*

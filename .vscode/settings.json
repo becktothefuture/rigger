@@ -1,0 +1,5 @@
+{
+  "rigger.ai.provider": "openai",
+  "rigger.ai.model": "gpt-4.1-mini",
+  "rigger.ai.baseUrl": "https://api.openai.com/v1"
+}
