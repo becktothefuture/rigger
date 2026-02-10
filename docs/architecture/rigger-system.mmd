@@ -1,0 +1,228 @@
+%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "fontFamily": "Helvetica Neue, Arial, sans-serif",
+    "fontSize": "13px",
+    "lineColor": "#858b96"
+  },
+  "flowchart": {
+    "curve": "cardinal",
+    "nodeSpacing": 34,
+    "rankSpacing": 54,
+    "htmlLabels": true
+  }
+}}%%
+flowchart LR
+  %% AUTO-GENERATED FROM architecture/rigger.machine.json
+
+  subgraph INPUT["01 INPUT"]
+    direction TB
+    U1["Intent"]
+    U2["Mode"]
+    U3["Panel"]
+    U4["Approval"]
+  end
+
+  subgraph PLAN["02 PLAN"]
+    direction TB
+    P1["Planner"]
+    P2["Hypothesis Engine"]
+    K1["K1 Plan Freeze"]
+    P3["Lateral Trigger"]
+    P4["Hands Change Request"]
+  end
+
+  subgraph HANDS["03 HANDS (Deterministic)"]
+    direction TB
+    H1["Tool Router"]
+    H2["scanWorkspace"]
+    H3["rankTargets"]
+    H4["buildRigPlan"]
+    H5["Canonical Patch"]
+    H6["Session Preview"]
+  end
+
+  subgraph VERIFY["04 VERIFY (Strict Gates)"]
+    direction TB
+    V1["Candidate Workspace"]
+    G1["Policy Gate"]
+    G2["Structural Gate"]
+    G3["Quality Gate"]
+    G4["Security Gate"]
+    G5["Performance Gate"]
+    V2["Verdict Aggregator"]
+    K2["K2 Gate Verdict"]
+    G6["Write Authorization"]
+    V3["Post-Apply Verification"]
+    G7["Commit Authorization"]
+  end
+
+  subgraph TEST["05 TEST RUNTIME"]
+    direction TB
+    T1["Unit Tests"]
+    T2["Integration Tests"]
+    T3["Build + Typecheck + Lint"]
+    T4["Visual Diffs"]
+    T5["Security Scans"]
+    T6["Perf Benchmarks"]
+    T7["Quality Evidence"]
+    T8["Security Evidence"]
+    T9["Performance Evidence"]
+  end
+
+  subgraph APPLY["06 APPLY + COMMIT"]
+    direction TB
+    K3["K3 Durable Apply"]
+    A1["applyWorkspaceEdit"]
+    A2["Save Values Map"]
+    A3["Save rig.config.json"]
+    A4["Save rig.snapshot.json"]
+    A5["Git Stage"]
+    K4["K4 Commit Values"]
+    A6["Git Commit"]
+  end
+
+  subgraph MEMORY["07 MEMORY + TRACE"]
+    direction TB
+    M1["Session State"]
+    M2["Pattern Memory"]
+    M3["Memory Admission Gate"]
+    M4["Secret Redactor"]
+    M5["Run Ledger"]
+    M6["Rollback Points"]
+  end
+
+  subgraph RECOVERY["08 RECOVERY"]
+    direction TB
+    R1["Failure Classifier"]
+    R2["Retry / Backoff"]
+    R3["Human Escalation"]
+  end
+
+  subgraph META["09 SELF-IMPROVEMENT"]
+    direction TB
+    X1["Tool Backlog"]
+    X2["Meta Tests"]
+    X3["Tool/Policy Release"]
+  end
+
+  U1 --> U3
+  U2 --> U3
+  U4 -->|approval input| P1
+  U3 --> P1
+  P1 --> P2
+  P2 --> K1
+  K1 --> H1
+  H1 --> H2
+  H1 --> H3
+  H2 --> H4
+  H3 --> H4
+  H4 --> H5
+  H5 --> H6
+  H6 --> U3
+  H6 --> M1
+  M1 --> H6
+  H5 --> V1
+  V1 --> G1
+  V1 --> G2
+  V1 --> G3
+  V1 --> G4
+  V1 --> G5
+  V1 --> T1
+  V1 --> T2
+  V1 --> T3
+  V1 --> T4
+  V1 --> T5
+  V1 --> T6
+  T1 --> T7
+  T2 --> T7
+  T3 --> T7
+  T4 --> T7
+  T5 --> T8
+  T6 --> T9
+  T7 --> G3
+  T8 --> G4
+  T9 --> G5
+  G1 --> V2
+  G2 --> V2
+  G3 --> V2
+  G4 --> V2
+  G5 --> V2
+  V2 --> K2
+  K2 -->|pass| G6
+  K2 -->|fail| R1
+  G6 --> K3
+  K3 --> A1
+  M1 --> A2
+  A1 --> A2
+  A1 --> A3
+  A1 --> A4
+  A1 --> V3
+  V3 -->|pass| G7
+  V3 -->|fail| R1
+  A2 --> A5
+  A3 --> A5
+  A4 --> A5
+  G7 --> A5
+  A5 --> K4
+  K4 --> A6
+  A1 --> M6
+  R1 -->|rollback| M6
+  M6 -->|restore| A1
+  R1 --> R2
+  R2 --> P1
+  R1 --> R3
+  R3 --> U3
+  P1 --> M4
+  K2 --> M4
+  A6 --> M4
+  M4 --> M5
+  M5 --> P1
+  K2 --> M3
+  M3 -->|admit| M2
+  M2 --> P1
+  P2 --> P3
+  K2 --> P3
+  R1 --> P3
+  P3 -->|if stuck| P4
+  P4 --> X1
+  X1 --> X2
+  X2 --> X3
+  X3 -->|tool update| H1
+  X3 -->|policy update| G1
+  X3 -->|auth update| G7
+
+  %% Braun-inspired dark styling
+  classDef nodeBase fill:#23252a,stroke:#686d76,color:#f2f2f2,stroke-width:1px;
+  classDef nodeInput fill:#1f262a,stroke:#64737e,color:#eaf1f5,stroke-width:1px;
+  classDef nodePlan fill:#25232d,stroke:#746b89,color:#efeafd,stroke-width:1px;
+  classDef nodeHands fill:#222a24,stroke:#6b7f6f,color:#edf6ef,stroke-width:1px;
+  classDef nodeVerify fill:#2a2d33,stroke:#b7bcc6,color:#f7f7f7,stroke-width:1.2px;
+  classDef nodeTest fill:#2a2822,stroke:#8f8668,color:#f5f1e4,stroke-width:1px;
+  classDef nodeApply fill:#2a2421,stroke:#8e7267,color:#f8ece7,stroke-width:1px;
+  classDef nodeMemory fill:#212329,stroke:#697287,color:#eaf0ff,stroke-width:1px;
+  classDef nodeRecovery fill:#342426,stroke:#e07b86,color:#ffe9ec,stroke-width:1.4px;
+  classDef nodeMeta fill:#272327,stroke:#827082,color:#f1e9f1,stroke-width:1px;
+  classDef keyMoment fill:#3a3422,stroke:#d6b95b,color:#f7f1d8,stroke-width:2px;
+  classDef gate fill:#2f3239,stroke:#d4d8df,color:#f7f7f7,stroke-width:1.6px;
+  classDef risk fill:#3a2426,stroke:#e07b86,color:#ffe9ec,stroke-width:1.7px;
+  class U1,U2,U3,U4 nodeInput;
+  class P1,P2,P3,P4 nodePlan;
+  class K1,K2,K3,K4 keyMoment;
+  class H1,H2,H3,H4,H5,H6 nodeHands;
+  class V1,V2,V3 nodeVerify;
+  class G1,G2,G3,G4,G5,G6,G7,M3,M4 gate;
+  class T1,T2,T3,T4,T5,T6,T7,T8,T9 nodeTest;
+  class A1,A2,A3,A4,A5,A6 nodeApply;
+  class M1,M2,M5,M6 nodeMemory;
+  class R1,R3 risk;
+  class R2 nodeRecovery;
+  class X1,X2,X3 nodeMeta;
+
+  linkStyle 43 stroke:#7ea86f,stroke-width:2px,color:#cfe7c8;
+  linkStyle 44 stroke:#cf6e79,stroke-width:2px,color:#ffd8dd;
+  linkStyle 52 stroke:#7ea86f,stroke-width:2px,color:#cfe7c8;
+  linkStyle 53 stroke:#cf6e79,stroke-width:2px,color:#ffd8dd;
+  linkStyle 61 stroke:#d5b665,stroke-width:1.6px,stroke-dasharray:6 4,color:#f7efcf;
+  linkStyle 62 stroke:#d5b665,stroke-width:1.6px,stroke-dasharray:6 4,color:#f7efcf;
+  linkStyle 78 stroke:#d5b665,stroke-width:1.6px,stroke-dasharray:6 4,color:#f7efcf;

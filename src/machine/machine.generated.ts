@@ -1,0 +1,812 @@
+/* AUTO-GENERATED FILE. DO NOT EDIT DIRECTLY.
+ * Source: architecture/rigger.machine.json
+ */
+
+export const machineSpecVersion = "1.0.0" as const;
+export const machineTitle = "Rigger Control Machine" as const;
+
+export const machineSections = [
+  {
+    "id": "INPUT",
+    "label": "01 INPUT"
+  },
+  {
+    "id": "PLAN",
+    "label": "02 PLAN"
+  },
+  {
+    "id": "HANDS",
+    "label": "03 HANDS (Deterministic)"
+  },
+  {
+    "id": "VERIFY",
+    "label": "04 VERIFY (Strict Gates)"
+  },
+  {
+    "id": "TEST",
+    "label": "05 TEST RUNTIME"
+  },
+  {
+    "id": "APPLY",
+    "label": "06 APPLY + COMMIT"
+  },
+  {
+    "id": "MEMORY",
+    "label": "07 MEMORY + TRACE"
+  },
+  {
+    "id": "RECOVERY",
+    "label": "08 RECOVERY"
+  },
+  {
+    "id": "META",
+    "label": "09 SELF-IMPROVEMENT"
+  }
+] as const;
+export const machineNodes = [
+  {
+    "id": "U1",
+    "label": "Intent",
+    "section": "INPUT",
+    "type": "normal",
+    "description": "What the user wants to achieve."
+  },
+  {
+    "id": "U2",
+    "label": "Mode",
+    "section": "INPUT",
+    "type": "normal",
+    "description": "Auto, guided, or manual run policy."
+  },
+  {
+    "id": "U3",
+    "label": "Panel",
+    "section": "INPUT",
+    "type": "normal",
+    "description": "Main control surface for the extension."
+  },
+  {
+    "id": "U4",
+    "label": "Approval",
+    "section": "INPUT",
+    "type": "normal",
+    "description": "User approval for guarded actions."
+  },
+  {
+    "id": "P1",
+    "label": "Planner",
+    "section": "PLAN",
+    "type": "normal",
+    "description": "AI planning brain. Proposes steps only."
+  },
+  {
+    "id": "P2",
+    "label": "Hypothesis Engine",
+    "section": "PLAN",
+    "type": "normal",
+    "description": "Generates alternative rigging strategies."
+  },
+  {
+    "id": "K1",
+    "label": "K1 Plan Freeze",
+    "section": "PLAN",
+    "type": "key",
+    "description": "Locks one candidate plan before tool execution."
+  },
+  {
+    "id": "P3",
+    "label": "Lateral Trigger",
+    "section": "PLAN",
+    "type": "normal",
+    "description": "Detects when ordinary retries are not enough."
+  },
+  {
+    "id": "P4",
+    "label": "Hands Change Request",
+    "section": "PLAN",
+    "type": "normal",
+    "description": "Proposal to evolve deterministic tools safely."
+  },
+  {
+    "id": "H1",
+    "label": "Tool Router",
+    "section": "HANDS",
+    "type": "normal",
+    "description": "Dispatches approved tool calls."
+  },
+  {
+    "id": "H2",
+    "label": "scanWorkspace",
+    "section": "HANDS",
+    "type": "normal",
+    "description": "Reads workspace to discover riggable targets."
+  },
+  {
+    "id": "H3",
+    "label": "rankTargets",
+    "section": "HANDS",
+    "type": "normal",
+    "description": "Ranks likely files and entry points."
+  },
+  {
+    "id": "H4",
+    "label": "buildRigPlan",
+    "section": "HANDS",
+    "type": "normal",
+    "description": "Builds a deterministic rigging plan."
+  },
+  {
+    "id": "H5",
+    "label": "Canonical Patch",
+    "section": "HANDS",
+    "type": "normal",
+    "description": "Single source artifact used by preview, gates, and apply."
+  },
+  {
+    "id": "H6",
+    "label": "Session Preview",
+    "section": "HANDS",
+    "type": "normal",
+    "description": "Ephemeral preview, no durable write."
+  },
+  {
+    "id": "V1",
+    "label": "Candidate Workspace",
+    "section": "VERIFY",
+    "type": "normal",
+    "description": "Patch is evaluated in candidate form."
+  },
+  {
+    "id": "G1",
+    "label": "Policy Gate",
+    "section": "VERIFY",
+    "type": "gate",
+    "description": "Path allowlist, scope control, edit budgets."
+  },
+  {
+    "id": "G2",
+    "label": "Structural Gate",
+    "section": "VERIFY",
+    "type": "gate",
+    "description": "Syntax, schema, idempotency checks."
+  },
+  {
+    "id": "G3",
+    "label": "Quality Gate",
+    "section": "VERIFY",
+    "type": "gate",
+    "description": "Unit/integration/build quality checks."
+  },
+  {
+    "id": "G4",
+    "label": "Security Gate",
+    "section": "VERIFY",
+    "type": "gate",
+    "description": "Secret safety, CSP, injection protections."
+  },
+  {
+    "id": "G5",
+    "label": "Performance Gate",
+    "section": "VERIFY",
+    "type": "gate",
+    "description": "Latency and rewrite budget limits."
+  },
+  {
+    "id": "V2",
+    "label": "Verdict Aggregator",
+    "section": "VERIFY",
+    "type": "normal",
+    "description": "Combines gate outcomes into one decision."
+  },
+  {
+    "id": "K2",
+    "label": "K2 Gate Verdict",
+    "section": "VERIFY",
+    "type": "key",
+    "description": "Pass or fail decision for candidate patch."
+  },
+  {
+    "id": "G6",
+    "label": "Write Authorization",
+    "section": "VERIFY",
+    "type": "gate",
+    "description": "Final gate before durable writes."
+  },
+  {
+    "id": "V3",
+    "label": "Post-Apply Verification",
+    "section": "VERIFY",
+    "type": "normal",
+    "description": "Sanity check after durable apply."
+  },
+  {
+    "id": "G7",
+    "label": "Commit Authorization",
+    "section": "VERIFY",
+    "type": "gate",
+    "description": "Final gate before git commit."
+  },
+  {
+    "id": "T1",
+    "label": "Unit Tests",
+    "section": "TEST",
+    "type": "normal",
+    "description": "Fast logic correctness tests."
+  },
+  {
+    "id": "T2",
+    "label": "Integration Tests",
+    "section": "TEST",
+    "type": "normal",
+    "description": "End-to-end extension behavior checks."
+  },
+  {
+    "id": "T3",
+    "label": "Build + Typecheck + Lint",
+    "section": "TEST",
+    "type": "normal",
+    "description": "Compilation and static quality checks."
+  },
+  {
+    "id": "T4",
+    "label": "Visual Diffs",
+    "section": "TEST",
+    "type": "normal",
+    "description": "UI drift detection against baseline."
+  },
+  {
+    "id": "T5",
+    "label": "Security Scans",
+    "section": "TEST",
+    "type": "normal",
+    "description": "Security-focused automated checks."
+  },
+  {
+    "id": "T6",
+    "label": "Perf Benchmarks",
+    "section": "TEST",
+    "type": "normal",
+    "description": "Performance baseline checks."
+  },
+  {
+    "id": "T7",
+    "label": "Quality Evidence",
+    "section": "TEST",
+    "type": "normal",
+    "description": "Aggregates quality signal from test outputs."
+  },
+  {
+    "id": "T8",
+    "label": "Security Evidence",
+    "section": "TEST",
+    "type": "normal",
+    "description": "Aggregates security signal from scans."
+  },
+  {
+    "id": "T9",
+    "label": "Performance Evidence",
+    "section": "TEST",
+    "type": "normal",
+    "description": "Aggregates performance signal from benchmarks."
+  },
+  {
+    "id": "K3",
+    "label": "K3 Durable Apply",
+    "section": "APPLY",
+    "type": "key",
+    "description": "Start of durable write phase."
+  },
+  {
+    "id": "A1",
+    "label": "applyWorkspaceEdit",
+    "section": "APPLY",
+    "type": "normal",
+    "description": "Writes approved edits to workspace."
+  },
+  {
+    "id": "A2",
+    "label": "Save Values Map",
+    "section": "APPLY",
+    "type": "normal",
+    "description": "Persists chosen values for replayability."
+  },
+  {
+    "id": "A3",
+    "label": "Save rig.config.json",
+    "section": "APPLY",
+    "type": "normal",
+    "description": "Persists machine-readable rig config."
+  },
+  {
+    "id": "A4",
+    "label": "Save rig.snapshot.json",
+    "section": "APPLY",
+    "type": "normal",
+    "description": "Persists snapshot of current tuned state."
+  },
+  {
+    "id": "A5",
+    "label": "Git Stage",
+    "section": "APPLY",
+    "type": "normal",
+    "description": "Stages durable output changes."
+  },
+  {
+    "id": "K4",
+    "label": "K4 Commit Values",
+    "section": "APPLY",
+    "type": "key",
+    "description": "Final commit moment for durable outputs."
+  },
+  {
+    "id": "A6",
+    "label": "Git Commit",
+    "section": "APPLY",
+    "type": "normal",
+    "description": "Creates auditable history of accepted values."
+  },
+  {
+    "id": "M1",
+    "label": "Session State",
+    "section": "MEMORY",
+    "type": "normal",
+    "description": "Current in-session tuning state."
+  },
+  {
+    "id": "M2",
+    "label": "Pattern Memory",
+    "section": "MEMORY",
+    "type": "normal",
+    "description": "Reusable successful patterns."
+  },
+  {
+    "id": "M3",
+    "label": "Memory Admission Gate",
+    "section": "MEMORY",
+    "type": "gate",
+    "description": "Only trusted runs can update pattern memory."
+  },
+  {
+    "id": "M4",
+    "label": "Secret Redactor",
+    "section": "MEMORY",
+    "type": "gate",
+    "description": "Removes secrets before trace storage."
+  },
+  {
+    "id": "M5",
+    "label": "Run Ledger",
+    "section": "MEMORY",
+    "type": "normal",
+    "description": "Redacted trace log for replay and audit."
+  },
+  {
+    "id": "M6",
+    "label": "Rollback Points",
+    "section": "MEMORY",
+    "type": "normal",
+    "description": "Known safe restore points."
+  },
+  {
+    "id": "R1",
+    "label": "Failure Classifier",
+    "section": "RECOVERY",
+    "type": "risk",
+    "description": "Classifies failure causes and selects recovery path."
+  },
+  {
+    "id": "R2",
+    "label": "Retry / Backoff",
+    "section": "RECOVERY",
+    "type": "normal",
+    "description": "Controlled retry with cooldown."
+  },
+  {
+    "id": "R3",
+    "label": "Human Escalation",
+    "section": "RECOVERY",
+    "type": "risk",
+    "description": "Requests user action for blocked flows."
+  },
+  {
+    "id": "X1",
+    "label": "Tool Backlog",
+    "section": "META",
+    "type": "normal",
+    "description": "Queued improvements for deterministic tools."
+  },
+  {
+    "id": "X2",
+    "label": "Meta Tests",
+    "section": "META",
+    "type": "normal",
+    "description": "Strict tests for tool/policy changes."
+  },
+  {
+    "id": "X3",
+    "label": "Tool/Policy Release",
+    "section": "META",
+    "type": "normal",
+    "description": "Controlled rollout of approved upgrades."
+  }
+] as const;
+export const machineEdges = [
+  {
+    "from": "U1",
+    "to": "U3"
+  },
+  {
+    "from": "U2",
+    "to": "U3"
+  },
+  {
+    "from": "U4",
+    "to": "P1",
+    "label": "approval input"
+  },
+  {
+    "from": "U3",
+    "to": "P1"
+  },
+  {
+    "from": "P1",
+    "to": "P2"
+  },
+  {
+    "from": "P2",
+    "to": "K1"
+  },
+  {
+    "from": "K1",
+    "to": "H1"
+  },
+  {
+    "from": "H1",
+    "to": "H2"
+  },
+  {
+    "from": "H1",
+    "to": "H3"
+  },
+  {
+    "from": "H2",
+    "to": "H4"
+  },
+  {
+    "from": "H3",
+    "to": "H4"
+  },
+  {
+    "from": "H4",
+    "to": "H5"
+  },
+  {
+    "from": "H5",
+    "to": "H6"
+  },
+  {
+    "from": "H6",
+    "to": "U3"
+  },
+  {
+    "from": "H6",
+    "to": "M1"
+  },
+  {
+    "from": "M1",
+    "to": "H6"
+  },
+  {
+    "from": "H5",
+    "to": "V1"
+  },
+  {
+    "from": "V1",
+    "to": "G1"
+  },
+  {
+    "from": "V1",
+    "to": "G2"
+  },
+  {
+    "from": "V1",
+    "to": "G3"
+  },
+  {
+    "from": "V1",
+    "to": "G4"
+  },
+  {
+    "from": "V1",
+    "to": "G5"
+  },
+  {
+    "from": "V1",
+    "to": "T1"
+  },
+  {
+    "from": "V1",
+    "to": "T2"
+  },
+  {
+    "from": "V1",
+    "to": "T3"
+  },
+  {
+    "from": "V1",
+    "to": "T4"
+  },
+  {
+    "from": "V1",
+    "to": "T5"
+  },
+  {
+    "from": "V1",
+    "to": "T6"
+  },
+  {
+    "from": "T1",
+    "to": "T7"
+  },
+  {
+    "from": "T2",
+    "to": "T7"
+  },
+  {
+    "from": "T3",
+    "to": "T7"
+  },
+  {
+    "from": "T4",
+    "to": "T7"
+  },
+  {
+    "from": "T5",
+    "to": "T8"
+  },
+  {
+    "from": "T6",
+    "to": "T9"
+  },
+  {
+    "from": "T7",
+    "to": "G3"
+  },
+  {
+    "from": "T8",
+    "to": "G4"
+  },
+  {
+    "from": "T9",
+    "to": "G5"
+  },
+  {
+    "from": "G1",
+    "to": "V2"
+  },
+  {
+    "from": "G2",
+    "to": "V2"
+  },
+  {
+    "from": "G3",
+    "to": "V2"
+  },
+  {
+    "from": "G4",
+    "to": "V2"
+  },
+  {
+    "from": "G5",
+    "to": "V2"
+  },
+  {
+    "from": "V2",
+    "to": "K2"
+  },
+  {
+    "from": "K2",
+    "to": "G6",
+    "label": "pass"
+  },
+  {
+    "from": "K2",
+    "to": "R1",
+    "label": "fail"
+  },
+  {
+    "from": "G6",
+    "to": "K3"
+  },
+  {
+    "from": "K3",
+    "to": "A1"
+  },
+  {
+    "from": "M1",
+    "to": "A2"
+  },
+  {
+    "from": "A1",
+    "to": "A2"
+  },
+  {
+    "from": "A1",
+    "to": "A3"
+  },
+  {
+    "from": "A1",
+    "to": "A4"
+  },
+  {
+    "from": "A1",
+    "to": "V3"
+  },
+  {
+    "from": "V3",
+    "to": "G7",
+    "label": "pass"
+  },
+  {
+    "from": "V3",
+    "to": "R1",
+    "label": "fail"
+  },
+  {
+    "from": "A2",
+    "to": "A5"
+  },
+  {
+    "from": "A3",
+    "to": "A5"
+  },
+  {
+    "from": "A4",
+    "to": "A5"
+  },
+  {
+    "from": "G7",
+    "to": "A5"
+  },
+  {
+    "from": "A5",
+    "to": "K4"
+  },
+  {
+    "from": "K4",
+    "to": "A6"
+  },
+  {
+    "from": "A1",
+    "to": "M6"
+  },
+  {
+    "from": "R1",
+    "to": "M6",
+    "label": "rollback"
+  },
+  {
+    "from": "M6",
+    "to": "A1",
+    "label": "restore"
+  },
+  {
+    "from": "R1",
+    "to": "R2"
+  },
+  {
+    "from": "R2",
+    "to": "P1"
+  },
+  {
+    "from": "R1",
+    "to": "R3"
+  },
+  {
+    "from": "R3",
+    "to": "U3"
+  },
+  {
+    "from": "P1",
+    "to": "M4"
+  },
+  {
+    "from": "K2",
+    "to": "M4"
+  },
+  {
+    "from": "A6",
+    "to": "M4"
+  },
+  {
+    "from": "M4",
+    "to": "M5"
+  },
+  {
+    "from": "M5",
+    "to": "P1"
+  },
+  {
+    "from": "K2",
+    "to": "M3"
+  },
+  {
+    "from": "M3",
+    "to": "M2",
+    "label": "admit"
+  },
+  {
+    "from": "M2",
+    "to": "P1"
+  },
+  {
+    "from": "P2",
+    "to": "P3"
+  },
+  {
+    "from": "K2",
+    "to": "P3"
+  },
+  {
+    "from": "R1",
+    "to": "P3"
+  },
+  {
+    "from": "P3",
+    "to": "P4",
+    "label": "if stuck"
+  },
+  {
+    "from": "P4",
+    "to": "X1"
+  },
+  {
+    "from": "X1",
+    "to": "X2"
+  },
+  {
+    "from": "X2",
+    "to": "X3"
+  },
+  {
+    "from": "X3",
+    "to": "H1",
+    "label": "tool update"
+  },
+  {
+    "from": "X3",
+    "to": "G1",
+    "label": "policy update"
+  },
+  {
+    "from": "X3",
+    "to": "G7",
+    "label": "auth update"
+  }
+] as const;
+
+export type MachineSectionId = typeof machineSections[number]["id"];
+export type MachineNodeId = typeof machineNodes[number]["id"];
+export type MachineNodeType = typeof machineNodes[number]["type"];
+
+export type MachineSection = typeof machineSections[number];
+export type MachineNode = typeof machineNodes[number];
+export type MachineEdge = typeof machineEdges[number];
+
+export const machineNodeById: Record<MachineNodeId, MachineNode> = Object.fromEntries(
+  machineNodes.map((node) => [node.id, node])
+) as Record<MachineNodeId, MachineNode>;
+
+export const machineOutgoingEdgesByNode: Record<MachineNodeId, MachineEdge[]> = Object.fromEntries(
+  machineNodes.map((node) => [
+    node.id,
+    machineEdges.filter((edge) => edge.from === node.id)
+  ])
+) as Record<MachineNodeId, MachineEdge[]>;
+
+export const machineIncomingEdgesByNode: Record<MachineNodeId, MachineEdge[]> = Object.fromEntries(
+  machineNodes.map((node) => [
+    node.id,
+    machineEdges.filter((edge) => edge.to === node.id)
+  ])
+) as Record<MachineNodeId, MachineEdge[]>;

@@ -22,6 +22,16 @@
 ## Build
 - `npm run build` builds extension + webview.
 
+## Machine Parity (Runtime <-> Diagram)
+- Source of truth: `architecture/rigger.machine.json`
+- Generate synced artifacts:
+  - `src/machine/machine.generated.ts`
+  - `docs/architecture/rigger-system.mmd`
+  - `docs/architecture/glossary.md`
+- Commands:
+  - `npm run machine:generate`
+  - `npm run machine:check` (fails if generated files drift)
+
 ## Tests
 - Unit: `npm run test`
 - Integration: `npm run test:integration`

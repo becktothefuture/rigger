@@ -66,6 +66,8 @@
     }
   },
   "scripts": {
+    "machine:generate": "node scripts/machine/generate-machine.mjs",
+    "machine:check": "node scripts/machine/generate-machine.mjs --check",
     "watch:extension": "tsc -w -p tsconfig.json",
     "watch:webview": "npm --prefix webview run dev",
     "watch": "concurrently \"npm:watch:extension\" \"npm:watch:webview\"",
