@@ -25,6 +25,9 @@ Source lives in `docs/landing/`.
 **Live preview**
 [GitHub Pages](https://becktothefuture.github.io/rigger/)
 
+**Live URL**
+`https://becktothefuture.github.io/rigger/`
+
 **Local preview**
 ```bash
 python3 -m http.server 4173 --directory docs/landing
